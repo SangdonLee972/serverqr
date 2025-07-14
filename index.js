@@ -288,8 +288,8 @@ const shutdown = () => {
 };
 process.on('SIGTERM', shutdown);
 process.on('SIGINT',  shutdown);
-
-const PORT = parseInt(process.env.PORT, 10) || 3000;
-server.listen(PORT, () => {
-  logger.info('Worker listening', { pid: process.pid, port: PORT });
-});
+ const PORT = parseInt(process.env.PORT, 10) || 3000;
+ // 외부 요청을 받기 위해 0.0.0.0에 바인딩
+ server.listen(PORT, '0.0.0.0', () => {
+   logger.info('Worker listening', { pid: process.pid, port: PORT, host: '0.0.0.0' });
+ });
